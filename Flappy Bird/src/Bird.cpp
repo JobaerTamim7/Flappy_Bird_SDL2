@@ -4,7 +4,7 @@
 Bird::Bird(SDL_Window* window)
 {
 	renderer = SDL_GetRenderer(window);
-	for (int i = 1; i < 5; i++)
+	for (int i = 1; i < 6; i++)
 	{
 		std::stringstream p;
 		p << "asset/grumpy_bird/frame-" << i << ".png";
@@ -18,7 +18,7 @@ Bird::Bird(SDL_Window* window)
 
 void Bird::animate()
 {
-	SDL_RenderCopy(renderer, bird_tex[floor(frame)], NULL, &bird_rect);
+	SDL_RenderCopyEx(renderer, bird_tex[floor(frame)], NULL, &bird_rect,vel_y*2,nullptr,SDL_FLIP_NONE);
 	frame += .4;
 	if (frame > 4)
 	{
@@ -36,7 +36,7 @@ void Bird::update()
 	}
 	if (fly == true)
 	{
-		vel_y -= 4;
+		vel_y -= 4.5;
 		fly = false;
 	}
 }

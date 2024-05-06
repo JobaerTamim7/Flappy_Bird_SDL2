@@ -26,7 +26,6 @@ int main(int argc, char* args[])
 		/**********---MAIN MENU---*************/
 		if (current_state == game_state::MAIN_MENU) 
 		{
-			
 			MainMenu menu(window);
 			while (menu.get_main_menu_state()) {
 				menu.render();
@@ -52,12 +51,16 @@ int main(int argc, char* args[])
 		/*---------------GAME---------------------*/
 		else if (current_state == game_state::GAME)
 		{
-
 			Game game(window);
-			while (!game.get_game_over())
+			while (game.t != 0)
+			{
+				game.start_count();
+				game.t -= 1;
+				SDL_Delay(1000);
+			}
+			while (game.get_main_menu_state() == false)
 			{
 				game.render();
-
 				game.handle_event();
 				SDL_Delay(16);
 			}

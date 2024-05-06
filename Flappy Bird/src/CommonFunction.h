@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<map>
 #include<string.h>
+#include<sstream>
 #include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_ttf.h>
@@ -24,5 +25,6 @@ namespace common {
 		int alpha_channel;
 	};
 	void transition(SDL_Renderer*, Transition& );
+	std::string int_to_str(int);
 
 };

@@ -9,6 +9,7 @@ public:
 	void animate();
 	void update();
 	SDL_Rect get_bird_rect(){ return bird_rect; }
+	SDL_Texture* get_dead_bird() { return bird_tex[4]; }
 	bool fly = false;
 private:
 	SDL_Renderer* renderer;

@@ -187,6 +187,13 @@ void common::transition(SDL_Renderer* renderer, Transition& transition)
 	}
 }
 
+std::string common::int_to_str(int i)
+{
+	std::stringstream ss;
+	ss << i;
+	return ss.str(); 
+}
+
 common::Transition::Transition()
 {
 	active = false;
