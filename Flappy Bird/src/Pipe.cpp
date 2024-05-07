@@ -10,6 +10,7 @@ Pipe::Pipe(SDL_Window* window)
 	f = 0;
 }
 
+
 void Pipe::draw()
 {
 	SDL_RenderCopy(renderer, pipe_tex, nullptr, &pipe_rect_down);

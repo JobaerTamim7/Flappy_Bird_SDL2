@@ -10,7 +10,7 @@ class Bird;
 
 class Game {
 public:
-	Game(SDL_Window*);
+	Game(SDL_Window*,std::string);
 	void render();
 	void handle_event();
 	void free_memory();
@@ -38,6 +38,7 @@ private:
 
 	std::vector<Pipe> pipes;
 	std::map<std::string, SDL_Texture*> texture_map;
+	std::string dir_bird;
 
 	int score;
 	Uint32 pause_interval;
@@ -53,6 +54,7 @@ private:
 	const SDL_Rect resume_button_rect = { 191, 351,240,90 };
 	const SDL_Rect main_menu_rect = { 218,169,193,84 };
 	const SDL_Rect resume_rect = { 221,334,173,105 };
+	const SDL_Rect over_score_rect  = { 450,440,54,67 };
  
 	bool game_over;
 	bool main_menu_state;

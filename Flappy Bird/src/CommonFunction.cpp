@@ -178,7 +178,7 @@ void common::transition(SDL_Renderer* renderer, Transition& transition)
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, transition.alpha_channel);
 		SDL_RenderFillRect(renderer, NULL);
 		SDL_RenderPresent(renderer);
-		transition.alpha_channel -= 5;
+		transition.alpha_channel -= 20;
 		if (transition.alpha_channel < 0)
 		{
 			transition.alpha_channel = 255;

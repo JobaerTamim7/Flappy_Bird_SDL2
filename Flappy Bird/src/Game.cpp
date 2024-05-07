@@ -2,19 +2,19 @@
 #include<sstream>
 
 
-Game::Game(SDL_Window* window)
+Game::Game(SDL_Window* window,std::string bird_dir)
 {
 	win = window;
 	renderer = SDL_GetRenderer(window);
 
-	bird = new Bird(win);
+	bird = new Bird(win,bird_dir);
 	re = new Restart(win);
-	texture_map["font_main_menu"] = common::load_font_texture("asset/pacifico.ttf", "Main Menu", renderer, WHITE, 36);
-	texture_map["font_main_menu_active"] = common::load_font_texture("asset/pacifico.ttf", "Main Menu", renderer, BLACK, 36);
-	texture_map["font_resume"] = common::load_font_texture("asset/pacifico.ttf", "Resume", renderer, WHITE, 36);
-	texture_map["font_resume_active"] = common::load_font_texture("asset/pacifico.ttf", "Resume", renderer, BLACK, 36);
-	texture_map["button_bg"] = common::load_texture("asset/start_bg.png", renderer);
-	texture_map["button_bg_active"] = common::load_texture("asset/start_bg_active.png", renderer);
+	texture_map["font_main_menu"] = common::load_font_texture("asset/flappy.ttf", "Main Menu", renderer, BROWN, 500);
+	texture_map["font_main_menu_active"] = common::load_font_texture("asset/flappy.ttf", "Main Menu", renderer, GREEN, 500);
+	texture_map["font_resume"] = common::load_font_texture("asset/flappy.ttf", "Resume", renderer, BROWN, 500);
+	texture_map["font_resume_active"] = common::load_font_texture("asset/flappy.ttf", "Resume", renderer,GREEN, 500);
+	texture_map["button_bg"] = common::load_texture("asset/btn.png", renderer);
+	texture_map["button_bg_active"] = common::load_texture("asset/btn_active.png", renderer);
 	texture_map["bg"] = common::load_texture("asset/bg_game.png", renderer);
 	texture_map["base"] = common::load_texture("asset/base.png", renderer);
 	texture_map["pause_bg"] = common::load_texture("asset/pause_bg.png", renderer);
@@ -29,6 +29,8 @@ Game::Game(SDL_Window* window)
 	pause_interval = 0;
 	score = 0;
 	t = 3;
+
+	dir_bird = bird_dir;
 }
 
 void Game::render()
@@ -36,7 +38,7 @@ void Game::render()
 	SDL_Rect bird_rect = bird->get_bird_rect();
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_map["bg"], nullptr, &bg_rect);
-	if (Game::pause != true && !game_over)
+	if (pause != true && !game_over)
 	{
 		for (Pipe& pipe : pipes)
 		{
@@ -52,7 +54,7 @@ void Game::render()
 		score_render();
 	}
 
-	else if (Game::pause == true)
+	else if (pause == true && game_over == false)
 	{
 		for (Pipe& pipe : pipes)
 		{
@@ -61,18 +63,22 @@ void Game::render()
 		Game::pause_render();
 	}
 
-	else if (!pause && game_over)
+	else if (game_over == true)
 	{
 		pause = false;
-		SDL_RenderCopy(renderer, texture_map["base"], nullptr, &base_rect);
-		SDL_RenderCopy(renderer, texture_map["base"], nullptr, &base_rect2);
+		texture_map["score"] = common::load_font_texture("asset/roboto.ttf", common::int_to_str(score), renderer, WHITE, 36);
 		for (Pipe& pipe : pipes)
 		{
 			pipe.draw();
 		}
+
+		SDL_RenderCopy(renderer, texture_map["base"], nullptr, &base_rect);
+		SDL_RenderCopy(renderer, texture_map["base"], nullptr, &base_rect2);
 		
 		SDL_RenderCopyEx(renderer, bird->get_dead_bird(), nullptr, &bird_rect, 45, nullptr, SDL_FLIP_NONE);
 		re->render();
+		SDL_RenderCopy(renderer, texture_map["score"], nullptr, &over_score_rect);
+		SDL_DestroyTexture(texture_map["score"]);
 	}
 	
 	//common::display_setter(renderer, texture_map["font_resume"]);
@@ -118,16 +124,21 @@ void Game::handle_event()
 		}
 		if (event.type == SDL_MOUSEBUTTONDOWN)
 		{
-			if (common::mouse_collision_rect(resume_button_rect) && pause == true)
+			if (pause == true)
 			{
-				pause = false;
-				pause_done = true;
-				pause_interval = SDL_GetTicks() - pause_start;
+				if (common::mouse_collision_rect(resume_button_rect) &&  game_over == false)
+				{
+					pause = false;
+					pause_done = true;
+					pause_interval = SDL_GetTicks() - pause_start;
+				}
+				if (common::mouse_collision_rect(main_menu_button_rect) &&  game_over == false)
+				{
+					game_over = true;
+					main_menu_state = true;
+				}
 			}
-			if (common::mouse_collision_rect(main_menu_button_rect))
-			{
-				main_menu_state = true;
-			}
+			
 			if (game_over == true)
 			{
 				if (common::mouse_collision_rect(re->get_menu_button()))
@@ -266,8 +277,8 @@ void Game::score_render()
 void Game::start_count()
 {
 	std::string t_txt = common::int_to_str(t);
-	SDL_Texture* t_tex = common::load_font_texture("asset/pacifico.ttf", t_txt, renderer, BLACK, 90);
-	SDL_Texture* bird_tex = common::load_texture("asset/grumpy_bird/frame-2.png", renderer);
+	SDL_Texture* t_tex = common::load_font_texture("asset/flappy.ttf", t_txt, renderer, BLACK, 90);
+	SDL_Texture* bird_tex = common::load_texture(("asset/"+ dir_bird +"/frame-2.png").c_str(), renderer);
 	SDL_Rect bird_rect = bird->get_bird_rect();
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_map["bg"], nullptr, &bg_rect);

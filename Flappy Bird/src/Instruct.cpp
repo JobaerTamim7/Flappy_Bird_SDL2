@@ -43,6 +43,7 @@ void Instruct::render()
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_map["instruct_bg"], nullptr, &instruct_bg_rect);
 	SDL_RenderCopy(renderer, texture_map["line"], nullptr, &line1_rect);
+	//common::display_setter(renderer, texture_map["go_back"]);
 	if (common::mouse_collision_rect(back_button))
 	{
 		SDL_RenderCopy(renderer, texture_map["go_back_active"], nullptr, &back_button);

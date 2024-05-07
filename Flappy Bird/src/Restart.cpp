@@ -3,14 +3,14 @@
 Restart::Restart(SDL_Window* window)
 {
 	renderer = SDL_GetRenderer(window);
-	tex_map["h_score"] = common::load_font_texture("asset/roboto.ttf", "High Score : ", renderer, WHITE, 36);
-	tex_map["score"] = common::load_font_texture("asset/roboto.ttf", "Your Score : ", renderer, WHITE, 36);
-	tex_map["button_bg"] = common::load_texture("asset/start_bg.png", renderer);
-	tex_map["button_bg_active"] = common::load_texture("asset/start_bg_active.png", renderer);
-	tex_map["restart"] = common::load_font_texture("asset/pacifico.ttf", "Restart", renderer, WHITE, 36);
-	tex_map["main_menu"] = common::load_font_texture("asset/pacifico.ttf", "Main Menu", renderer, WHITE, 36);
-	tex_map["restart_active"] = common::load_font_texture("asset/pacifico.ttf", "Restart", renderer, GREY, 36);
-	tex_map["main_menu_active"] = common::load_font_texture("asset/pacifico.ttf", "Main Menu", renderer, GREY, 36);
+	tex_map["h_score"] = common::load_font_texture("asset/roboto.ttf", "High Score : ", renderer, WHITE, 500);
+	tex_map["score"] = common::load_font_texture("asset/roboto.ttf", "Your Score : ", renderer, WHITE, 500);
+	tex_map["button_bg"] = common::load_texture("asset/btn.png", renderer);
+	tex_map["button_bg_active"] = common::load_texture("asset/btn_active.png", renderer);
+	tex_map["restart"] = common::load_font_texture("asset/flappy.ttf", "Restart", renderer, BROWN, 500);
+	tex_map["main_menu"] = common::load_font_texture("asset/flappy.ttf", "Main Menu", renderer, BROWN, 500);
+	tex_map["restart_active"] = common::load_font_texture("asset/flappy.ttf", "Restart", renderer, GREEN, 500);
+	tex_map["main_menu_active"] = common::load_font_texture("asset/flappy.ttf", "Main Menu", renderer, GREEN, 500);
 }
 
 void Restart::render()

@@ -3,13 +3,14 @@
 MainMenu::MainMenu(SDL_Window* window)
 {
 	renderer = SDL_GetRenderer(window);
+	texture_map["frame"] = common::load_texture("asset/frame_main.png", renderer);
 	texture_map["main_menu_bg"] = common::load_texture("asset/main_menu_bg.png", renderer);
-	texture_map["button_bg"] = common::load_texture("asset/start_bg.png", renderer);
-	texture_map["button_bg_active"] = common::load_texture("asset/start_bg_active.png", renderer);
-	texture_map["start_font"] = common::load_font_texture("asset/pacifico.ttf", "Play Game", renderer, WHITE, 36);
-	texture_map["start_font_active"] = common::load_font_texture("asset/pacifico.ttf", "Play Game", renderer, GREY, 36);
-	texture_map["instruct_font"] = common::load_font_texture("asset/pacifico.ttf", "Tutorial", renderer, WHITE, 36);
-	texture_map["instruct_font_active"] = common::load_font_texture("asset/pacifico.ttf", "Tutorial", renderer, GREY, 36);	
+	texture_map["button_bg"] = common::load_texture("asset/btn.png", renderer);
+	texture_map["button_bg_active"] = common::load_texture("asset/btn_active.png", renderer);
+	texture_map["start_font"] = common::load_font_texture("asset/flappy.ttf", "Play Game", renderer, BROWN, 500);
+	texture_map["start_font_active"] = common::load_font_texture("asset/flappy.ttf", "Play Game", renderer, GREEN, 800);
+	texture_map["instruct_font"] = common::load_font_texture("asset/flappy.ttf", "Tutorial", renderer, BROWN, 500);
+	texture_map["instruct_font_active"] = common::load_font_texture("asset/flappy.ttf", "Tutorial", renderer, GREEN, 500);	
 
 	main_menu_state = true;
 	instruct_state = false;
@@ -56,6 +57,8 @@ void MainMenu::render()
 {
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_map["main_menu_bg"],nullptr,&main_menu_rect);
+	SDL_RenderCopy(renderer,texture_map["frame"],nullptr,&frame_rect);
+	//common::display_setter(renderer, texture_map["frame"]);
 	
 	if (common::mouse_collision_rect(start_button_rect))
 	{

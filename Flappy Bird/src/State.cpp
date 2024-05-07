@@ -1,15 +1,22 @@
 #include "State.h"
 
-void change_state_main_menu(game_state& state, MainMenu& obj,common::Transition& fade)
+void change_state_main_menu(game_state& state, MainMenu& obj,ChoiceMenu& obj2, common::Transition& fade)
 {
 	fade.active = true;
-	if (obj.get_instruct_state() == true)
+	if (obj.get_game_run_state() == true)
 	{
-		state = game_state::TUTORIAL;
+		if (obj.get_instruct_state() == true)
+		{
+			state = game_state::TUTORIAL;
+		}
+		else if (obj2.get_frwrd() == true)
+		{
+			state = game_state::GAME;
+		}
 	}
-	else if (obj.get_game_run_state() == true)
+	else if (obj2.get_back() == true)
 	{
-		state = game_state::GAME;
+		state = game_state::MAIN_MENU;
 	}
 	else
 	{

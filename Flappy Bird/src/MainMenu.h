@@ -22,10 +22,11 @@ private:
 
 	// RECT SECTION
 	const SDL_Rect main_menu_rect = { 0,0,WINDOW_WIDTH,WINDOW_HEIGHT };
-	const SDL_Rect start_font_rect = { 200,174,200,70 };
-	const SDL_Rect instruct_font_rect = { 227,346,132,80 };
-	const SDL_Rect start_button_rect = { 180,169,240,90 };
-	const SDL_Rect instruct_button_rect = { 180,346,240,90 };
+	const SDL_Rect start_font_rect = { 220, 219, 169, 54 };
+	const SDL_Rect instruct_font_rect = { 233, 327, 136, 60 };
+	const SDL_Rect start_button_rect = { 196,214,212,70 };
+	const SDL_Rect instruct_button_rect = { 196,325,212,70 };
+	const SDL_Rect frame_rect = { 124,73,369,552 };
 };
 
 

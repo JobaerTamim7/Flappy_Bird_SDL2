@@ -19,6 +19,7 @@ int main(int argc, char* args[])
 	common::Transition fade;
 	game_state current_state = game_state::MAIN_MENU;
 	bool run = true;
+	std::string bird;
 
 	while (run)
 	{
@@ -33,7 +34,16 @@ int main(int argc, char* args[])
 				SDL_Delay(16);
 			}
 			menu.free_memory();
-			change_state_main_menu(current_state,menu,fade);
+			ChoiceMenu choice(window);
+			while (choice.quit == false && menu.get_game_run_state() == true)
+			{
+				choice.render();
+				choice.handle_event();
+			}
+			bird = choice.get_bird();
+			choice.free_memory();
+			change_state_main_menu(current_state,menu,choice,fade);
+			std::cout << menu.get_game_run_state() << std::endl;
 
 		}
 		/*----------------TUTORIAL---------------------*/
@@ -51,7 +61,7 @@ int main(int argc, char* args[])
 		/*---------------GAME---------------------*/
 		else if (current_state == game_state::GAME)
 		{
-			Game game(window);
+			Game game(window,bird);
 			while (game.t != 0)
 			{
 				game.start_count();

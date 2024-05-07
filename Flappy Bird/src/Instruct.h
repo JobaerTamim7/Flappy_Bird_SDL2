@@ -22,5 +22,5 @@ private:
 
 	const SDL_Rect instruct_bg_rect = { 0,0,WINDOW_WIDTH,WINDOW_HEIGHT };
 	const SDL_Rect line1_rect = { 57,207,493,54 };
-	const SDL_Rect back_button = { 0,5,120,120 };
+	const SDL_Rect back_button = { 509,572,60,60 };
 };
