@@ -20,5 +20,6 @@ private:
 	const SDL_Rect menu_button_rect = {WINDOW_WIDTH-(20+240),553,147,51};
 	const SDL_Rect re_rect = { 98,550,115,51};
 	const SDL_Rect menu_rect = { 358,550,121,51 };
+	const SDL_Rect game_over_rect = { 201,157,203,131 };
 };  
 

@@ -11,13 +11,15 @@ Restart::Restart(SDL_Window* window)
 	tex_map["main_menu"] = common::load_font_texture("asset/font/minecraft.ttf", "Main Menu", renderer, BROWN, 500);
 	tex_map["restart_active"] = common::load_font_texture("asset/font/minecraft.ttf", "Restart", renderer, GREEN, 500);
 	tex_map["main_menu_active"] = common::load_font_texture("asset/font/minecraft.ttf", "Main Menu", renderer, GREEN, 500);
+	tex_map["game_over"] = common::load_texture("asset/texture/game_over.png",renderer);
 }
 
 void Restart::render()
 {
+	SDL_RenderCopy(renderer,tex_map["game_over"],nullptr,&game_over_rect);
 	SDL_RenderCopy(renderer, tex_map["h_score"], nullptr, &h_score_rect);
 	SDL_RenderCopy(renderer, tex_map["score"], nullptr, &score_rect);
-
+	//common::display_setter(renderer,tex_map["game_over"]);
 	if (common::mouse_collision_rect(menu_button_rect))
 	{
 		SDL_RenderCopy(renderer, tex_map["button_bg_active"], nullptr, &menu_button_rect);

@@ -10,7 +10,8 @@ MainMenu::MainMenu(SDL_Window* window)
 	texture_map["start_font_active"] = common::load_font_texture("asset/font/minecraft.ttf", "Play Game", renderer, GREEN, 800);
 	texture_map["instruct_font"] = common::load_font_texture("asset/font/minecraft.ttf", "Tutorial", renderer, BROWN, 500);
 	texture_map["instruct_font_active"] = common::load_font_texture("asset/font/minecraft.ttf", "Tutorial", renderer, GREEN, 500);	
-	texture_map["meteor"] = common::load_texture("asset/texture/meteor.png", renderer);
+	texture_map["title"] = common::load_texture("asset/texture/title.png",renderer);
+	//texture_map["meteor"] = common::load_texture("asset/texture/meteor.png", renderer);
 
 	music_map["bg_music"] = Mix_LoadMUS("asset/sound/open.mp3");
 
@@ -81,6 +82,8 @@ void MainMenu::render()
 	sound();
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_map["main_menu_bg"],nullptr,&main_menu_rect);
+	//common::display_setter(renderer,texture_map["title"]);
+	SDL_RenderCopy(renderer,texture_map["title"],nullptr,&title_rect);
 	if (common::mouse_collision_rect(start_button_rect))
 	{
 		SDL_RenderCopy(renderer, texture_map["button_bg_active"], nullptr, &start_button_rect);

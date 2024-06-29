@@ -5,9 +5,6 @@
 #include"Bird.h"
 #include"Restart.h"
 
-class Pipe;
-class Bird;
-
 class Game {
 public:
 	Game(SDL_Window*,std::string);
@@ -23,8 +20,9 @@ public:
 
 	bool get_quit_state() { return quit_state; }
 	bool get_main_menu_state() { return main_menu_state; }
-	bool get_game_over() { return game_over; }
+	bool get_re_state(){ return re_state; }
 	bool is_collide();
+	bool get_game_state(){ return game_state; }
 
 	int get_score() { return score; }
 
@@ -64,13 +62,14 @@ private:
 	const SDL_Rect new_rect = { 36,343,68,71 };
 
  
+	bool game_state;
 	bool game_over;
 	bool main_menu_state;
 	bool quit_state;
 	bool re_state;
 	bool pause;
 	bool pause_done;
-	bool new_h_score = false;
+	bool new_h_score;
 };
 
 

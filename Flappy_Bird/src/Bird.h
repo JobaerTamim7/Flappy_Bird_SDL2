@@ -1,6 +1,7 @@
 #pragma once
 #include"CommonFunction.h"
 #include<vector>
+#include<math.h>
 
 class Bird
 {

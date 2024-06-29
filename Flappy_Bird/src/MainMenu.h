@@ -30,6 +30,7 @@ private:
 	const SDL_Rect instruct_font_rect = { 233, 327, 136, 60 };
 	const SDL_Rect start_button_rect = { 196,214,212,70 };
 	const SDL_Rect instruct_button_rect = { 196,325,212,70 };
+	const SDL_Rect title_rect = { 83,15,433,129 };
 
 };
 

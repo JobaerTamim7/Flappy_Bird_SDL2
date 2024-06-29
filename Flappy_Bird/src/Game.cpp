@@ -7,7 +7,7 @@ Game::Game(SDL_Window* window,std::string bird_dir)
 	win = window;
 	renderer = SDL_GetRenderer(window);
 
-	bird = new Bird(win,bird_dir);
+	bird = new Bird(win,bird_dir); 
 	re = new Restart(win);
 	texture_map["font_main_menu"] = common::load_font_texture("asset/font/minecraft.ttf", "Main Menu", renderer, BROWN, 500);
 	texture_map["font_main_menu_active"] = common::load_font_texture("asset/font/minecraft.ttf", "Main Menu", renderer, GREEN, 500);
@@ -29,6 +29,7 @@ Game::Game(SDL_Window* window,std::string bird_dir)
 
 	game_over = false;
 	main_menu_state = false;
+	game_state = true;
 	pause = false;
 	pause_done = false;
 	quit_state = false;
@@ -72,6 +73,7 @@ void Game::render()
 
 	else if (pause == true && game_over == false)
 	{
+		Mix_HaltMusic();
 		for (Pipe& pipe : pipes)
 		{
 			pipe.draw();
@@ -122,7 +124,7 @@ void Game::handle_event()
 		if (event.type == SDL_QUIT)
 		{
 			quit_state = true;
-			main_menu_state = true;
+			game_state = false;
 		}
 		if (event.type == SDL_KEYDOWN)
 		{
@@ -161,6 +163,7 @@ void Game::handle_event()
 				if (common::mouse_collision_rect(main_menu_button_rect) &&  game_over == false)
 				{
 					game_over = true;
+					game_state = false;
 					main_menu_state = true;
 				}
 			}
@@ -170,11 +173,14 @@ void Game::handle_event()
 				if (common::mouse_collision_rect(re->get_menu_button()))
 				{
 					main_menu_state = true;
+					game_state = false;
 				}
 				if (common::mouse_collision_rect(re->get_re_button()))
 				{
-					main_menu_state = true;
+					game_state = true;
 					game_over = false;
+					main_menu_state = false;
+					re_state = true;
 				}
 			}
 		}
@@ -359,6 +365,3 @@ void Game::pause_render()
 	}
 
 }
-
-
-

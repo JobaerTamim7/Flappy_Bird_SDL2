@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 
 	while (run)
 	{
-		/**********---MAIN MENU---*************/
+		/*---------MAIN MENU--------------*/
 		if (current_state == game_state::MAIN_MENU) 
 		{
 			MainMenu menu(window);
@@ -45,7 +45,6 @@ int main(int argc, char* args[])
 			bird = choice.get_bird();
 			choice.free_memory();
 			change_state_main_menu(current_state,menu,choice);
-
 		}
 		/*----------------TUTORIAL---------------------*/
 		else if (current_state == game_state::TUTORIAL) 
@@ -69,7 +68,7 @@ int main(int argc, char* args[])
 				game.t -= 1;
 				SDL_Delay(1000);
 			}
-			while (game.get_main_menu_state() == false)
+			while (game.get_game_state()== true && game.get_re_state() == false)
 			{
 				game.render();
 				game.handle_event();
@@ -77,6 +76,7 @@ int main(int argc, char* args[])
 			}
 			game.free_memory();
 			change_state_game(current_state, game);
+			std::cout << game.get_game_state() << game.get_main_menu_state() << game.get_quit_state() << std::endl;
 		}
 		else if (current_state == game_state::QUIT) {
 			run = false;

@@ -31,11 +31,11 @@ void change_state_game(game_state& state, Game& obj)
 	{
 		state = game_state::QUIT;
 	}
-	else if (obj.get_main_menu_state() == true && obj.get_game_over() == true)
+	else if (obj.get_main_menu_state() == true)
 	{
 		state = game_state::MAIN_MENU;
 	}
-	else if (obj.get_game_over() == false)
+	else if (obj.get_game_state() == true)
 	{
 		state = game_state::GAME;
 	}

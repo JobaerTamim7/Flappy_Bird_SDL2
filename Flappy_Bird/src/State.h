@@ -6,9 +6,6 @@
 #include"ChoiceMenu.h"
 #include"CommonFunction.h"
 
-
-
-// MAIN MENU
 enum game_state
 {
 	MAIN_MENU,

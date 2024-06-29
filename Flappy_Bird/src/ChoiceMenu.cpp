@@ -3,7 +3,6 @@
 ChoiceMenu::ChoiceMenu(SDL_Window* window, Uint32 type_start)
 {
 	renderer = SDL_GetRenderer(window);
-
 	bird_vector.push_back( common::load_texture("asset/grumpy/frame-1.png", renderer));
 	bird_vector.push_back ( common::load_texture("asset/dragon/frame-1.png",renderer));
 	bird_vector.push_back(common::load_texture("asset/winter/frame-1.png", renderer));

@@ -1,6 +1,6 @@
 #include"CommonFunction.h"
 
-SDL_Window* common::set_window(const char* path, const char* title)
+SDL_Window* common::set_window(const char* icon_path, const char* title)
 {
 	SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == NULL)
@@ -15,21 +15,21 @@ SDL_Window* common::set_window(const char* path, const char* title)
 		success();
 		fprintf(stdout, "Successfully created window.");
 		resetColor();
-		if (path == nullptr)
+		if (icon_path == nullptr)
 		{
 			fail();
-			fprintf(stderr, "Path %s for icon is invalid.", path);
+			fprintf(stderr, "Path %s for icon is invalid.", icon_path);
 			resetColor();
 			return nullptr;
 		}
 		else
 		{
-			SDL_Surface* icon_surface = IMG_Load(path);
+			SDL_Surface* icon_surface = IMG_Load(icon_path);
 			SDL_SetWindowIcon(window, icon_surface);
 			SDL_FreeSurface(icon_surface);
-			success();
-			fprintf(stdout, "Successfully created icon.");
-			resetColor();
+			// success();
+			// fprintf(stdout, "Successfully created icon.");
+			// resetColor();
 		}
 	}
 	return window;
@@ -44,13 +44,6 @@ SDL_Texture* common::load_texture(const char* tex_path, SDL_Renderer* renderer)
 		resetColor();
 		return nullptr;
 	}
-	if (renderer == nullptr)
-	{
-		fail();
-		fprintf(stderr, "Renderer for path %s is invalid.", tex_path);
-		resetColor();
-		return nullptr;
-	}
 	SDL_Surface* img_surface = IMG_Load(tex_path);
 	if (img_surface == NULL)
 	{
@@ -61,9 +54,9 @@ SDL_Texture* common::load_texture(const char* tex_path, SDL_Renderer* renderer)
 	}
 	else
 	{
-		success();
-		fprintf(stdout, "Successfully loaded %s image.", tex_path);
-		resetColor();
+		// success();
+		// fprintf(stdout, "Successfully loaded %s image.", tex_path);
+		// resetColor();
 		SDL_Texture* img_texture = SDL_CreateTextureFromSurface(renderer, img_surface);
 		SDL_FreeSurface(img_surface);
 		if (img_texture == NULL)
@@ -75,9 +68,9 @@ SDL_Texture* common::load_texture(const char* tex_path, SDL_Renderer* renderer)
 		}
 		else
 		{
-			success();
-			fprintf(stdout, "Successfully created texture of image %s.", tex_path);
-			resetColor();
+			// success();
+			// fprintf(stdout, "Successfully created texture of image %s.", tex_path);
+			// resetColor();
 			return img_texture;
 		}
 	}
@@ -85,7 +78,7 @@ SDL_Texture* common::load_texture(const char* tex_path, SDL_Renderer* renderer)
 
 SDL_Texture* common::load_font_texture(const char* font_path, std::string content, SDL_Renderer* renderer, SDL_Color color, int size)
 {
-	TTF_Font* font = TTF_OpenFont(font_path, size);
+	TTF_Font* font = TTF_OpenFont(font_path, size); 
 	if (font == nullptr)
 	{
 		fail();
@@ -96,9 +89,9 @@ SDL_Texture* common::load_font_texture(const char* font_path, std::string conten
 	}
 	else
 	{
-		success();
-		fprintf(stdout, "Sucessfully opened the font %s.", font_path);
-		resetColor();
+		// success();
+		// fprintf(stdout, "Sucessfully opened the font %s.", font_path);
+		// resetColor();
 		SDL_Surface* text_surface = TTF_RenderText_Solid(font, content.c_str(), color);
 		if (text_surface == nullptr)
 		{
@@ -110,9 +103,9 @@ SDL_Texture* common::load_font_texture(const char* font_path, std::string conten
 		}
 		else
 		{
-			success();
-			fprintf(stdout, "Sucessfully created surface from %s.", font_path);
-			resetColor();
+			// success();
+			// fprintf(stdout, "Sucessfully created surface from %s.", font_path);
+			// resetColor();
 			SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 			SDL_FreeSurface(text_surface);
 			TTF_CloseFont(font);
@@ -125,9 +118,9 @@ SDL_Texture* common::load_font_texture(const char* font_path, std::string conten
 			}
 			else
 			{
-				success();
-				fprintf(stdout, "Successfully created texture from %s.", font_path);
-				resetColor();
+				// success();
+				// fprintf(stdout, "Successfully created texture from %s.", font_path);
+				// resetColor();
 				return texture;
 			}
 		}
@@ -142,19 +135,19 @@ void common::display_setter(SDL_Renderer* renderer, SDL_Texture* texture)
 	SDL_GetMouseState(&x, &y);
 	SDL_Rect rect = { x,y,wi,hi };
 	SDL_RenderCopy(renderer, texture, NULL, &rect);
-	const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
-	if (keyboardState[SDL_SCANCODE_UP]) {
+	const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
+	if (keyboard_state[SDL_SCANCODE_UP]) {
 		hi ++;
 	}
-	if (keyboardState[SDL_SCANCODE_DOWN])
+	if (keyboard_state[SDL_SCANCODE_DOWN])
 	{
 		hi--;
 	}
-	if (keyboardState[SDL_SCANCODE_LEFT])
+	if (keyboard_state[SDL_SCANCODE_LEFT])
 	{
 		wi++;
 	}
-	if (keyboardState[SDL_SCANCODE_RIGHT])
+	if (keyboard_state[SDL_SCANCODE_RIGHT])
 	{
 		wi--;
 	}
@@ -183,12 +176,15 @@ std::string common::int_to_str(int i)
 std::string common::file_reader(std::string file_path)
 {
 	std::ifstream file(file_path);
+	if(!file.is_open())
+	{
+		SDL_Log("No Such file exist\n");
+	}
 	std::string content;
 	std::string line;
 	while (std::getline(file,line))
 	{
 		content += line;
-		content += '\n';
 	}
 	file.close();
 	return content;
