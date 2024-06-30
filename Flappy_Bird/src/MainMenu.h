@@ -23,6 +23,7 @@ private:
 	bool main_menu_state;
 	bool instruct_state;
 	bool game_state;
+	bool sound_state;
 
 	// RECT SECTION
 	const SDL_Rect main_menu_rect = { 0,0,WINDOW_WIDTH,WINDOW_HEIGHT };
@@ -31,7 +32,9 @@ private:
 	const SDL_Rect start_button_rect = { 196,214,212,70 };
 	const SDL_Rect instruct_button_rect = { 196,325,212,70 };
 	const SDL_Rect title_rect = { 83,15,433,129 };
-
+	const SDL_Rect sound_rect = { 37,603,74,76 };
+	const SDL_Rect sound_src_rect_on = { 0,0,944,980};
+	const SDL_Rect sound_src_rect_off = { 944,0,944,980};
 };
 
 

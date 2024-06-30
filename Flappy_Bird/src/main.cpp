@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 
 	while (run)
 	{
-		/*---------MAIN MENU--------------*/
+		/*---------MAIN MENU------------*/
 		if (current_state == game_state::MAIN_MENU) 
 		{
 			MainMenu menu(window);
